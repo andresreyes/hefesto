@@ -1,65 +1,47 @@
 {
-  "$schema": "./site.config.schema.json",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "marca": {
     "nombre": "Hefesto",
-    "comando": "/hefesto",
     "tagline": "La forja de tus skills de agente",
     "dominio": "hefesto.pages.dev",
-    "repo": "https://github.com/CAMBIAR/hefesto"
+    "repo": "https://github.com/andresreyes/hefesto"
   },
   "hero": {
-    "titulo": "Tus skills tienen un SLO. Nadie lo está midiendo.",
-    "entrada": "Corre {comando} en tu repo. Lee tus sesiones reales de agente, las califica contra rúbricas, y te devuelve diffs listos para revisar.",
-    "soporta": ["Claude Code", "Codex"],
-    "nota_privacidad": "Los scripts corren en tu máquina. Ninguna transcripción sale de ella por la red."
-  },
-  "tarjeta_ejemplo": {
-    "servicio": "otel-sre-gateway",
-    "objetivo": 0.85,
-    "cumplimiento": 0.79,
-    "presupuesto_consumido": 0.72,
-    "senales": [
-      { "nombre": "eficiencia", "valor": 0.74, "objetivo": 0.8 },
-      { "nombre": "calidad de código", "valor": 0.91, "objetivo": 0.85 },
-      { "nombre": "cobertura de skills", "valor": 0.58, "objetivo": 0.7 }
-    ],
-    "hallazgo": "El skill de despliegue existe pero no disparó en 7 de 12 sesiones. Es un problema de descripción, no de contenido.",
-    "diff": {
-      "archivo": "deploy-cloudrun/SKILL.md",
-      "quitar": "Úsalo para desplegar.",
-      "poner": "Úsalo cuando el usuario mencione desplegar, publicar, promover a producción, o nombre un servicio de Cloud Run."
-    }
+    "titulo": "La mitad de los defectos de un skill son de ubicación, no de redacción.",
+    "entrada": "Suelta un SKILL.md o un prompt de rol. Hefesto lo califica sobre 100 y te dice qué línea está en la capa equivocada: el umbral que debería vivir en gates.yaml, el procedimiento metido dentro de un prompt, el contexto de equipo que impide compartir la skill.",
+    "soporta": ["Claude Code", "Codex", "AGENTS.md"],
+    "nota_privacidad": "El análisis corre entero en tu navegador. El archivo no se sube a ningún servidor, no hay backend y no se guarda nada."
   },
   "pasos": [
     {
-      "clave": "recolectar",
-      "titulo": "Recolectar",
-      "texto": "Encuentra tus sesiones locales de agente y las acota al repo actual. Nada se copia fuera del directorio temporal de la corrida."
+      "clave": "tipo",
+      "titulo": "Detecta qué es",
+      "texto": "Un prompt de rol y una skill se califican distinto, porque sus formas correctas son opuestas: el prompt es corto y sin procedimiento, la skill es larga y sin números. Hefesto decide por la ruta del archivo, y tú puedes corregirlo."
     },
     {
-      "clave": "calificar",
-      "titulo": "Calificar",
-      "texto": "Cada sesión se juzga contra tres rúbricas versionadas. Las rúbricas son archivos del repo: las editas y el criterio cambia."
+      "clave": "califica",
+      "titulo": "Califica cuatro ejes",
+      "texto": "Cada eje tiene reglas con peso. Una falla en una regla pesada mueve la nota; un aviso la mueve a la mitad. La nota final es la suma ponderada, no un promedio de opiniones."
     },
     {
-      "clave": "proponer",
-      "titulo": "Proponer",
-      "texto": "Cada sugerencia cita la sesión y el momento que la motiva, y llega como diff unificado. Tú decides si entra."
+      "clave": "ubica",
+      "titulo": "Señala la línea",
+      "texto": "Cuando encuentra algo fuera de su capa, te da el número de línea y el texto. No es «mejora la redacción»: es «esta línea pertenece a otro archivo»."
     }
   ],
   "senales_explicadas": [
-    { "nombre": "eficiencia", "peso": 0.5, "texto": "Cuánto trabajo redundante hizo el agente antes de llegar al resultado." },
-    { "nombre": "calidad de código", "peso": 0.35, "texto": "Qué tan defendible fue el cambio que produjo, donde hubo cambios de código." },
-    { "nombre": "cobertura de skills", "peso": 0.15, "texto": "En qué fracción de sesiones un skill instalado realmente disparó." }
+    { "nombre": "disparo · identidad", "peso": 0.25, "texto": "Si el agente lo carga cuando debe, y si el rol sabe quién es." },
+    { "nombre": "procedimiento · frontera", "peso": 0.25, "texto": "Si es seguible sin adivinar, y si el rol sabe dónde termina." },
+    { "nombre": "ubicación", "peso": 0.35, "texto": "Si cada línea está en la capa que le toca. Ningún número dentro de una instrucción, ningún procedimiento dentro de un prompt, nada escrito después de la tarea." },
+    { "nombre": "seguridad", "peso": 0.15, "texto": "Si es defendible ante revisión: sin credenciales, sin comandos destructivos sueltos, sin confiar el aislamiento a la redacción." }
   ],
   "cta": {
-    "texto": "Ver el skill en GitHub",
-    "url": "https://github.com/CAMBIAR/hefesto"
+    "texto": "Ver el código en GitHub",
+    "url": "https://github.com/andresreyes/hefesto"
   },
   "pie": {
-    "propietario": "Equipo SRE",
+    "propietario": "Hefesto",
     "anio": 2026,
-    "licencia": "Uso interno"
+    "licencia": "Código abierto"
   }
 }
