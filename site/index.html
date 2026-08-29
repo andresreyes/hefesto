@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill SLO — mide tus skills como mides tus servicios</title>
+<meta name="description" content="Califica tus sesiones reales de agente contra rúbricas versionadas y recibe diffs listos para revisar sobre tus SKILL.md. Corre local.">
+<meta name="color-scheme" content="light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+
+<header class="top">
+  <span class="wordmark" data-bind="marca.nombre">Skill SLO</span>
+  <code class="cmd" data-bind="marca.comando">/skill-slo</code>
+</header>
+
+<main>
+
+  <section class="hero">
+    <p class="eyebrow">Diagnóstico de skills · <span data-bind="hero.soporta">Claude Code, Codex</span></p>
+    <h1 data-bind="hero.titulo">Tus skills tienen un SLO. Nadie lo está midiendo.</h1>
+    <p class="lede" data-bind="hero.entrada"></p>
+
+    <div class="runline">
+      <code id="runcmd">/skill-slo</code>
+      <button id="copy" type="button">copiar</button>
+    </div>
+    <p class="privacy" data-bind="hero.nota_privacidad"></p>
+  </section>
+
+  <!-- signature element: la health card, en el mismo lenguaje que un servicio en producción -->
+  <section class="card-wrap" aria-labelledby="card-h">
+    <h2 id="card-h" class="section-h">Reporte de ejemplo</h2>
+
+    <article class="healthcard">
+      <div class="hc-head">
+        <div>
+          <p class="hc-label">repo evaluado</p>
+          <p class="hc-service" data-bind="tarjeta_ejemplo.servicio">otel-sre-gateway</p>
+        </div>
+        <div class="hc-grade">
+          <span class="hc-num" data-bind-pct="tarjeta_ejemplo.cumplimiento">79%</span>
+          <span class="hc-target">objetivo <b data-bind-pct="tarjeta_ejemplo.objetivo">85%</b></span>
+        </div>
+      </div>
+
+      <div class="budget" role="img" aria-label="Presupuesto de error consumido">
+        <p class="hc-label">presupuesto consumido</p>
+        <div class="budget-track"><div class="budget-fill" id="budgetfill"></div></div>
+      </div>
+
+      <ul class="signals" id="signals"></ul>
+
+      <p class="finding" data-bind="tarjeta_ejemplo.hallazgo"></p>
+
+      <div class="diff">
+        <p class="hc-label" data-bind="tarjeta_ejemplo.diff.archivo">deploy-cloudrun/SKILL.md</p>
+        <p class="d-out"><span>−</span><span data-bind="tarjeta_ejemplo.diff.quitar"></span></p>
+        <p class="d-in"><span>+</span><span data-bind="tarjeta_ejemplo.diff.poner"></span></p>
+      </div>
+    </article>
+  </section>
+
+  <section class="analyzer" aria-labelledby="an-h">
+    <h2 id="an-h" class="section-h">Analiza un SKILL.md ahora</h2>
+    <p class="an-lede">Suelta un <code>SKILL.md</code> o un prompt de rol. Se califican con rúbricas distintas, porque tienen formas correctas distintas: un prompt de rol correcto es corto y sin procedimiento; una skill correcta es larga y sin números. El análisis corre en tu navegador, nada se envía a ningún servidor.</p>
+
+    <div id="an-drop" class="dropzone" tabindex="0" role="button" aria-label="Subir un archivo SKILL.md">
+      <span class="dz-main">Arrastra tu SKILL.md</span>
+      <span class="dz-sub">o toca para elegirlo</span>
+    </div>
+    <input type="file" id="an-input" accept=".md,.markdown,text/markdown,text/plain" hidden>
+
+    <details class="an-paste">
+      <summary>Prefiero pegar el texto</summary>
+      <textarea id="an-paste" rows="8" placeholder="---&#10;name: mi-skill&#10;description: ...&#10;---"></textarea>
+      <button id="an-run" type="button">Analizar</button>
+    </details>
+
+    <p id="an-warn" class="an-warn" hidden></p>
+
+    <div id="an-result" class="healthcard an-result" hidden>
+      <div class="hc-head">
+        <div>
+          <p class="hc-label">archivo</p>
+          <p class="hc-service" id="an-file"></p>
+          <p class="an-type-line">
+            evaluado como <b id="an-type"></b>
+            <span id="an-conf" class="an-conf"></span>
+            <button type="button" id="an-swap" class="an-swap"></button>
+          </p>
+        </div>
+        <div class="hc-grade">
+          <span class="hc-num" id="an-grade"></span>
+          <span class="hc-target"><b id="an-score"></b> sobre 100</span>
+        </div>
+      </div>
+      <ul class="signals" id="an-axes"></ul>
+      <p class="an-tally" id="an-tally"></p>
+      <ul class="rules" id="an-rules"></ul>
+    </div>
+  </section>
+
+  <section class="steps" aria-labelledby="steps-h">
+    <h2 id="steps-h" class="section-h">Cómo funciona</h2>
+    <ol id="steps"></ol>
+  </section>
+
+  <section class="signals-explained" aria-labelledby="sig-h">
+    <h2 id="sig-h" class="section-h">Qué se mide</h2>
+    <dl id="sigex"></dl>
+    <p class="formula"><code>total = 0.50·eficiencia + 0.35·calidad + 0.15·cobertura</code></p>
+  </section>
+
+  <section class="cta">
+    <a id="ctalink" href="#">Ver el skill en GitHub</a>
+  </section>
+
+</main>
+
+<footer>
+  <span id="footline">Equipo SRE · 2026 · Uso interno</span>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/analyzer.js"></script>
+</body>
+</html>
