@@ -207,3 +207,7 @@ footer{
 .rule-lines .ln{flex:none; color:var(--signal)}
 .rule-lines .lt{color:var(--ink); overflow-wrap:anywhere}
 .an-lede code{font-family:var(--mono); font-size:.9em}
+
+.d-line{font-family:var(--mono); font-size:12.5px; display:flex; gap:10px; align-items:flex-start; margin:0 0 8px}
+.d-line span:first-child{flex:none; color:var(--signal)}
+.d-verdict{margin:0; font-size:14.5px; color:var(--ink-60); border-left:2.5px solid var(--burn); padding-left:12px}

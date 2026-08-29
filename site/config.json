@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "marca": {
     "nombre": "Hefesto",
     "tagline": "La forja de tus skills de agente",
@@ -9,7 +9,11 @@
   "hero": {
     "titulo": "La mitad de los defectos de un skill son de ubicación, no de redacción.",
     "entrada": "Suelta un SKILL.md o un prompt de rol. Hefesto lo califica sobre 100 y te dice qué línea está en la capa equivocada: el umbral que debería vivir en gates.yaml, el procedimiento metido dentro de un prompt, el contexto de equipo que impide compartir la skill.",
-    "soporta": ["Claude Code", "Codex", "AGENTS.md"],
+    "soporta": [
+      "Claude Code",
+      "Codex",
+      "AGENTS.md"
+    ],
     "nota_privacidad": "El análisis corre entero en tu navegador. El archivo no se sube a ningún servidor, no hay backend y no se guarda nada."
   },
   "pasos": [
@@ -30,10 +34,26 @@
     }
   ],
   "senales_explicadas": [
-    { "nombre": "disparo · identidad", "peso": 0.25, "texto": "Si el agente lo carga cuando debe, y si el rol sabe quién es." },
-    { "nombre": "procedimiento · frontera", "peso": 0.25, "texto": "Si es seguible sin adivinar, y si el rol sabe dónde termina." },
-    { "nombre": "ubicación", "peso": 0.35, "texto": "Si cada línea está en la capa que le toca. Ningún número dentro de una instrucción, ningún procedimiento dentro de un prompt, nada escrito después de la tarea." },
-    { "nombre": "seguridad", "peso": 0.15, "texto": "Si es defendible ante revisión: sin credenciales, sin comandos destructivos sueltos, sin confiar el aislamiento a la redacción." }
+    {
+      "nombre": "disparo · identidad",
+      "peso": 0.25,
+      "texto": "Si el agente lo carga cuando debe, y si el rol sabe quién es."
+    },
+    {
+      "nombre": "procedimiento · frontera",
+      "peso": 0.25,
+      "texto": "Si es seguible sin adivinar, y si el rol sabe dónde termina."
+    },
+    {
+      "nombre": "ubicación",
+      "peso": 0.35,
+      "texto": "Si cada línea está en la capa que le toca. Ningún número dentro de una instrucción, ningún procedimiento dentro de un prompt, nada escrito después de la tarea."
+    },
+    {
+      "nombre": "seguridad",
+      "peso": 0.15,
+      "texto": "Si es defendible ante revisión: sin credenciales, sin comandos destructivos sueltos, sin confiar el aislamiento a la redacción."
+    }
   ],
   "cta": {
     "texto": "Ver el código en GitHub",
@@ -43,5 +63,39 @@
     "propietario": "Hefesto",
     "anio": 2026,
     "licencia": "Código abierto"
+  },
+  "tarjeta_ejemplo": {
+    "archivo": "pruebas.md",
+    "tipo": "prompt de rol",
+    "nota": 37,
+    "letra": "F",
+    "ejes": [
+      {
+        "nombre": "identidad",
+        "valor": 0.55,
+        "objetivo": 0.75
+      },
+      {
+        "nombre": "frontera",
+        "valor": 0.21,
+        "objetivo": 0.75
+      },
+      {
+        "nombre": "ubicación",
+        "valor": 0.19,
+        "objetivo": 0.75
+      },
+      {
+        "nombre": "seguridad",
+        "valor": 1.0,
+        "objetivo": 0.75
+      }
+    ],
+    "hallazgo": "Trae el procedimiento dentro: cuatro pasos y dos bloques de código. Eso pertenece a la skill, donde se comparte entre equipos y se versiona aparte.",
+    "linea": {
+      "n": 10,
+      "texto": "2. Verifica que la cobertura mínima sea de 80%.",
+      "veredicto": "Un umbral escrito en prosa. Va en gates.yaml, donde un script lo lee."
+    }
   }
 }

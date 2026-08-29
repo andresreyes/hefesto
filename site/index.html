@@ -28,6 +28,35 @@
     <p class="privacy" data-bind="hero.nota_privacidad"></p>
   </section>
 
+
+  <section class="card-wrap" aria-labelledby="card-h">
+    <h2 id="card-h" class="section-h">Así se ve un reporte</h2>
+
+    <article class="healthcard">
+      <div class="hc-head">
+        <div>
+          <p class="hc-label">archivo de ejemplo</p>
+          <p class="hc-service" data-bind="tarjeta_ejemplo.archivo"></p>
+          <p class="an-type-line">evaluado como <b data-bind="tarjeta_ejemplo.tipo"></b></p>
+        </div>
+        <div class="hc-grade">
+          <span class="hc-num" data-bind="tarjeta_ejemplo.letra"></span>
+          <span class="hc-target"><b data-bind="tarjeta_ejemplo.nota"></b> sobre 100</span>
+        </div>
+      </div>
+
+      <ul class="signals" id="ej-ejes"></ul>
+
+      <p class="finding" data-bind="tarjeta_ejemplo.hallazgo"></p>
+
+      <div class="diff">
+        <p class="hc-label">línea señalada</p>
+        <p class="d-line"><span id="ej-ln"></span><span data-bind="tarjeta_ejemplo.linea.texto"></span></p>
+        <p class="d-verdict" data-bind="tarjeta_ejemplo.linea.veredicto"></p>
+      </div>
+    </article>
+  </section>
+
   <section class="analyzer" aria-labelledby="an-h">
     <h2 id="an-h" class="section-h">Analiza un archivo ahora</h2>
     <p class="an-lede">Suelta un <code>SKILL.md</code> o un prompt de rol. Se califican con rúbricas distintas, porque tienen formas correctas distintas: un prompt de rol correcto es corto y sin procedimiento; una skill correcta es larga y sin números. El análisis corre en tu navegador, nada se envía a ningún servidor.</p>

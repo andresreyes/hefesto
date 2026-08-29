@@ -31,6 +31,22 @@
 
 
 
+  var animar = function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var llenar = function () {
+      document.querySelectorAll("#ej-ejes .signal-val").forEach(function (b) {
+        b.style.width = b.dataset.target;
+      });
+    };
+    if (reduce || !("IntersectionObserver" in window)) return llenar();
+    var card = document.querySelector(".healthcard");
+    if (!card) return;
+    var io = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { llenar(); io.disconnect(); }
+    }, { threshold: 0.3 });
+    io.observe(card);
+  };
+
   fetch("/config.json")
     .then(function (r) {
       if (!r.ok) throw new Error("config.json respondió " + r.status);
